@@ -9,7 +9,7 @@ void freeStack(stack_t *Head)
 	while (Head)
 	{
 		nxt = Head->next;
-		free(Head);	
+		free(Head);
 		Head = nxt;
 	}
 }
@@ -33,7 +33,7 @@ void pushFunc(stack_t **Head, unsigned int line_number)
 				freeStack(*Head);
 				free(buffer[0]);
 				exit(EXIT_FAILURE);
-			}			
+			}
 		}
 
 		newNode->n = atoi(buffer[1]);
@@ -71,7 +71,10 @@ void pintFunc(stack_t **Head, unsigned int line_number)
 	stack_t *trv = *Head;
 
 	if (!*Head)
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number), exit(EXIT_FAILURE);
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 	if (trv)
 		printf("%d\n", trv->n);
 }
@@ -80,15 +83,19 @@ void popFunc(stack_t **Head, unsigned int line_number)
 	stack_t *trv = *Head;
 
 	if (!*Head)
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number), exit(EXIT_FAILURE);
-
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 	*Head = trv->next;
 	free(trv);
 }
+
 void swapFunc(stack_t **Head, unsigned int line_number)
 {
 	stack_t *trv = *Head;
 	size_t n = 0, tmpVal;
+
 	while (trv)
 		trv = trv->next, n++;
 	if (n < 2)
@@ -105,6 +112,7 @@ void addFunc(stack_t **Head, unsigned int line_number)
 {
 	stack_t *trv = *Head;
 	size_t n = 0;
+
 	while (trv)
 		trv = trv->next, n++;
 	if (n < 2)
