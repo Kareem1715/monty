@@ -1,5 +1,5 @@
 push 3
-push df
+push 3
 push 3
 pall
   swap

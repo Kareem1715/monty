@@ -2,7 +2,7 @@
 
 char *buffer[] = {NULL};
 
-/*void freeStack(stack_t *Head)
+void freeStack(stack_t *Head)
 {
 	stack_t *nxt;
 
@@ -13,6 +13,7 @@ char *buffer[] = {NULL};
 		Head = nxt;
 	}
 }
+/*
 void pushFunc(stack_t **Head, unsigned int line_number)
 {
 	size_t i = 0;
