@@ -2,7 +2,7 @@
 
 char *buffer[] = {NULL};
 
-void freeStack(stack_t *Head)
+/*void freeStack(stack_t *Head)
 {
 	stack_t *nxt;
 
@@ -129,7 +129,7 @@ void nopFunc(__attribute__((unused)) stack_t **Head, __attribute__((unused)) uns
 {
 	return;
 }
-
+*/
 int main(int argc, char **argv)
 {
 	FILE *fileName;
