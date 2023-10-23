@@ -25,6 +25,14 @@ void modFnc(stack_t **Head, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	trv = *Head;
+	if (trv->n == 0) /* divide by zero */
+	{
+		fprintf(stderr, "L%d: division by zero\n", line_number);
+		freeStack(*Head);
+		free(gVar.instruction);
+		fclose(gVar.fileName);
+		exit(EXIT_FAILURE);
+	}
 	mod = (trv->next->n % trv->n);
 	*Head = trv->next;
 	(*Head)->n = mod;

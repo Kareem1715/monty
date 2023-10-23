@@ -11,20 +11,16 @@
 void pstrFnc(stack_t **Head, unsigned int line_number)
 {
 	stack_t *trv;
-	(void)line_number;
-
-	if (*Head == NULL)
-		goto newline;
+	(void)line_number; /* Not used var */
 
 	trv = *Head;
 	while (trv)
 	{
-		if (trv->n > 127 || trv->n <= 0)
+		if (trv->n > 127 || trv->n <= 0)/* all char in ascii */
 			break;
 
-		printf("%c", trv->n);
+		printf("%c", trv->n); /* Print char */
 		trv = trv->next;
 	}
-newline:
-	puts("");
+	puts(""); /* If head empty or at end of func */
 }

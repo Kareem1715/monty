@@ -75,7 +75,8 @@ void pstrFnc(stack_t **Head, unsigned int line_number);
 
 void check_operation(instruction_t operation[], stack_t **Stack, size_t lineNum);
 int check_empty_line(size_t lineNum, char *instruction);
-void push_error(stack_t *Head, stack_t *newNode);
+void push_error(stack_t *Head, unsigned int line_number);
+int notDigit(char *buf);
 void freeStack(stack_t *Head);
 
 #endif
