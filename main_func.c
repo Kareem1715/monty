@@ -39,7 +39,10 @@ int main(int argc, char **argv)
 
 		i = 0, gVar.buffer[i] = strtok(gVar.instruction, " \n");
 		if (check_empty_line(lineNum, instruction))
+		{
+			lineNum++;
 			continue; /* Skip the empty line */
+		}
 
 		if (gVar.buffer[i]) /* Tokenize the buffer */
 			gVar.buffer[++i] = strtok(NULL, " \n");

@@ -10,7 +10,7 @@
  */
 int check_empty_line(size_t lineNum, char *instruction)
 {
-	if (gVar.buffer[0] == NULL)
+	if (gVar.buffer[0] == NULL || gVar.buffer[0][0] == '#')
 	{
 		lineNum++;
 		free(instruction);
