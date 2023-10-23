@@ -13,7 +13,7 @@ void pcharFnc(stack_t **Head, unsigned int line_number)
 	stack_t *trv;
 
 	trv = *Head;
-	if (trv == NULL) /* Empty stack */
+	if (!trv) /* Empty stack */
 	{
 		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
 		freeStack(*Head);

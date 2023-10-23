@@ -13,7 +13,6 @@ void push_error(stack_t *Head, unsigned int line_number)
 {
 	fprintf(stderr, "L%d: usage: push integer\n", line_number);
 	freeStack(Head);
-	free(gVar.instruction);
 	fclose(gVar.fileName);
 	exit(EXIT_FAILURE);
 }

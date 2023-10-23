@@ -41,7 +41,7 @@ int main(int argc, char **argv)
 		if (check_empty_line(lineNum, instruction))
 			continue; /* Skip the empty line */
 
-		while (gVar.buffer[i]) /* Tokenize the buffer */
+		if (gVar.buffer[i]) /* Tokenize the buffer */
 			gVar.buffer[++i] = strtok(NULL, " \n");
 		if (strcmp(gVar.buffer[0], "push") == 0 && notDigit(gVar.buffer[1]))
 			free(instruction), push_error(Stack, lineNum);

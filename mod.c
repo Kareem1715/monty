@@ -18,7 +18,7 @@ void modFnc(stack_t **Head, unsigned int line_number)
 		trv = trv->next, n++;
 	if (n < 2)
 	{
-		fprintf(stderr, "L%d: can't mul, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't mod, stack too short\n", line_number);
 		freeStack(*Head);
 		free(gVar.instruction);
 		fclose(gVar.fileName);
