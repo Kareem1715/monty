@@ -1,73 +1,55 @@
 #include "monty.h"
 
-char *buffer[] = {NULL};
+glob_t gVar = {{NULL, NULL}, NULL, NULL};
 
-void freeStack(stack_t *Head)
-{
-	stack_t *nxt;
-
-	while (Head)
-	{
-		nxt = Head->next;
-		free(Head);
-		Head = nxt;
-	}
-}
-
+/**
+ * main - main function
+ *
+ * @argc: argument count
+ * @argv: argument value
+ *
+ * Return: 0 (always success)
+ */
 int main(int argc, char **argv)
 {
-	FILE *fileName;
-	char *instruction = NULL;
-	size_t len = 0, lineNum = 1, i = 0, j;
-	ssize_t readByt;
 	stack_t *Stack = NULL;
+	size_t len = 0, lineNum = 1, i = 0;
+	ssize_t readByt;
+	char *instruction = NULL;
+
 	instruction_t operation[] = {
-		{"push", pushFunc}, {"pall", pallFunc},
-		{"pint", pintFunc}, {"pop", popFunc},
-		{"swap", swapFunc}, {"add", addFunc},
-	    {"nop", nopFunc},   {NULL, NULL}
+		{"push", pushFnc}, {"pall", pallFnc}, {"pint", pintFnc}, {"pop", popFnc},
+		{"swap", swapFnc}, {"add", addFnc}, {"nop", nopFnc}, {"sub", subFnc},
+		{"div", divFnc},   {"mul", mulFnc}, {"mod", modFnc}, {"pchar", pcharFnc},
+		{"pstr", pstrFnc}, {NULL, NULL}
 	};
 
 	if (argc != 2)
 		fprintf(stderr, "USAGE: monty file\n"), exit(EXIT_FAILURE);
-	fileName = fopen(argv[1], "r");
-	if (fileName == NULL)
+
+	gVar.fileName = fopen(argv[1], "r");
+	if (gVar.fileName == NULL)
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]), exit(EXIT_FAILURE);
 	while ('T')
 	{
-		readByt = getline(&instruction, &len, fileName);
+		instruction = NULL;
+		readByt = getline(&instruction, &len, gVar.fileName);
+		gVar.instruction = instruction;
 		if (readByt == EOF)
 			break;
-		i = 0, buffer[i] = strtok(instruction, " \n");
-		if (buffer[0] == NULL)
-		{
-			lineNum++;
+
+		i = 0, gVar.buffer[i] = strtok(gVar.instruction, " \n");
+		if (check_empty_line(lineNum, instruction))
 			continue;
-		}
-		while (buffer[i])
-			buffer[++i] = strtok(NULL, " \n");
-		for (j = 0; operation[j].opcode; j++)
-		{
-			if (strcmp(operation[j].opcode, buffer[0]) == 0)
-			{
 
-				operation[j].f(&Stack, lineNum);
-				break;
-			}
+		while (gVar.buffer[i])
+			gVar.buffer[++i] = strtok(NULL, " \n");
 
-		}
-		if (operation[j].opcode == NULL)
-		{
-			fprintf(stderr, "L%ld: unknown instruction %s\n", lineNum, buffer[0]);
-			fclose(fileName);
-			free(instruction);
-			freeStack(Stack);
-			exit(EXIT_FAILURE);
-		}
-		lineNum++;
+		check_operation(operation, &Stack, lineNum);
+
+		lineNum++, free(instruction);
 	}
-	fclose(fileName);
-	free(instruction);
-	freeStack(Stack);
+	fclose(gVar.fileName), free(gVar.instruction), freeStack(Stack);
+
 	return (0);
 }

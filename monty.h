@@ -8,9 +8,7 @@
 #include <fcntl.h>
 #include <string.h>
 
-extern char *buffer[];
-extern FILE *fileName;
-extern char *instruction;
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -27,15 +25,6 @@ typedef struct stack_s
 	struct stack_s *next;
 } stack_t;
 
-void freeStack(stack_t *Head);
-void pushFunc(stack_t **Head, unsigned int line_number);
-void pallFunc(stack_t **Head, __attribute__((unused)) unsigned int line_number);
-void pintFunc(stack_t **Head, unsigned int line_number);
-void popFunc(stack_t **Head, unsigned int line_number);
-void swapFunc(stack_t **Head, unsigned int line_number);
-void addFunc(stack_t **Head, unsigned int line_number);
-void nopFunc(__attribute__((unused)) stack_t **Head, __attribute__((unused)) unsigned int line_number);
-
 
 /**
  * struct instruction_s - opcode and its function
@@ -50,13 +39,43 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-/*void freeStack(stack_t *Head);
-void pushFunc(stack_t **Head, unsigned int line_number);
-void pallFunc(stack_t **Head, __attribute__((unused)) unsigned int line_number);
-void pintFunc(stack_t **Head, unsigned int line_number);
-void popFunc(stack_t **Head, unsigned int line_number);
-void swapFunc(stack_t **Head, unsigned int line_number);
-void addFunc(stack_t **Head, unsigned int line_number);
-void nopFunc(__attribute__((unused)) stack_t **Head, __attribute__((unused)) unsigned int line_number);
-*/
-#endif /* MONTY_H */
+
+/**
+ * struct globalVaribale_s - global varibales
+ *
+ * @buffer: Buffer that has a monty and value linke `push 5`
+ * @instruction: The line taken by getline
+ * @fileName: Use it to close file before exit
+ *
+ * Description: This struct use to access for
+ * buffer, instruction and fileName in any file.
+ */
+typedef struct globalVaribale_s
+{
+	char *buffer[2];
+	char *instruction;
+	FILE *fileName;
+} glob_t;
+
+extern glob_t gVar;
+
+void pushFnc(stack_t **Head, unsigned int line_number);
+void pallFnc(stack_t **Head, unsigned int line_number);
+void pintFnc(stack_t **Head, unsigned int line_number);
+void popFnc(stack_t **Head, unsigned int line_number);
+void swapFnc(stack_t **Head, unsigned int line_number);
+void addFnc(stack_t **Head, unsigned int line_number);
+void nopFnc(stack_t **Head, unsigned int line_number);
+void subFnc(stack_t **head, unsigned int line_number);
+void divFnc(stack_t **head, unsigned int line_number);
+void mulFnc(stack_t **Head, unsigned int line_number);
+void modFnc(stack_t **Head, unsigned int line_number);
+void pcharFnc(stack_t **Head, unsigned int line_number);
+void pstrFnc(stack_t **Head, unsigned int line_number);
+
+void check_operation(instruction_t operation[], stack_t **Stack, size_t lineNum);
+int check_empty_line(size_t lineNum, char *instruction);
+void push_error(stack_t *Head, stack_t *newNode);
+void freeStack(stack_t *Head);
+
+#endif
