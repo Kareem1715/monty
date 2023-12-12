@@ -13,14 +13,15 @@ int notDigit(char *buf)
 {
 	size_t i = 0;
 
+	if (!buf) /* If no argument passed to push */
+		return (1);
+
 	if (buf[0] == '-') /* for negative numbers */
 		i++;
-
 
 	for (; buf[i] != '\0'; i++)
 		if (buf[i] < '0' || buf[i] > '9')
 			return (1);
-
 
 	return (0);
 }

@@ -11,6 +11,7 @@
 void pushFnc(stack_t **Head, unsigned int line_number)
 {
 	stack_t *newNode = malloc(sizeof(stack_t));
+	(void)line_number;
 
 	if (newNode == NULL)
 		fprintf(stderr, "Error: malloc failed\n"), exit(EXIT_FAILURE);
@@ -26,10 +27,5 @@ void pushFnc(stack_t **Head, unsigned int line_number)
 			(*Head)->prev = newNode;
 		}
 		*Head = newNode;
-	}
-	else
-	{
-		free(newNode);
-		push_error(*Head, line_number);
 	}
 }
